@@ -1,98 +1,56 @@
+# Exploring
 
-paypalAiPayment/
-│
-├── client/                              # React + Vite Frontend
-│   ├── public/
-│   ├── src/
-│   │   ├── assets/
-│   │   ├── components/
-│   │   │   ├── navbar.jsx
-│   │   │   ├── paymentForm.jsx
-│   │   │   ├── currencySelector.jsx
-│   │   │   ├── agentStatus.jsx
-│   │   │   └── transactionStatus.jsx
-│   │   │
-│   │   ├── pages/
-│   │   │   ├── home.jsx
-│   │   │   ├── dashboard.jsx
-│   │   │   └── payment.jsx
-│   │   │
-│   │   ├── services/
-│   │   │   └── paymentApi.js
-│   │   │
-│   │   ├── app.jsx
-│   │   └── main.jsx
-│   │
-│   ├── package.json
-│   └── vite.config.js
-│
-├── server/                              # Node.js + Express Backend
-│   ├── src/
-│   │   ├── config/
-│   │   │   ├── db.js
-│   │   │   └── paypal.js
-│   │   │
-│   │   ├── controllers/
-│   │   │   ├── paymentController.js
-│   │   │   └── agentController.js
-│   │   │
-│   │   ├── routes/
-│   │   │   ├── paymentRoutes.js
-│   │   │   └── agentRoutes.js
-│   │   │
-│   │   ├── models/
-│   │   │   ├── user.js
-│   │   │   └── transaction.js
-│   │   │
-│   │   ├── services/
-│   │   │   ├── paypalService.js
-│   │   │   ├── currencyService.js
-│   │   │   └── paymentService.js
-│   │   │
-│   │   ├── middleware/
-│   │   │   ├── authMiddleware.js
-│   │   │   └── errorMiddleware.js
-│   │   │
-│   │   ├── app.js
-│   │   └── server.js
-│   │
-│   ├── package.json
-│   └── .env
-│
-├── agents/                              # Python AI Agents
-│   ├── agents/
-│   │   ├── __init__.py
-│   │   ├── paymentAgent.py
-│   │   ├── currencyAgent.py
-│   │   ├── complianceAgent.py
-│   │   └── transactionAgent.py
-│   │
-│   ├── orchestrator/
-│   │   ├── __init__.py
-│   │   └── agentOrchestrator.py
-│   │
-│   ├── tools/
-│   │   ├── __init__.py
-│   │   ├── paypalTool.py
-│   │   ├── exchangeRateTool.py
-│   │   └── riskAnalysisTool.py
-│   │
-│   ├── schemas/
-│   │   ├── __init__.py
-│   │   └── paymentSchema.py
-│   │
-│   ├── utils/
-│   │   ├── __init__.py
-│   │   └── logger.py
-│   │
-│   ├── main.py
-│   ├── requirements.txt
-│   └── .env
-│
-├── docs/
-│   ├── architecture.md
-│   ├── api.md
-│   └── workflow.md
-│
-├── .gitignore
-└── README.md
+Cartwise is an AI shopping assistant that researches products, compares options, and prepares a cart for your approval before checkout.
+
+This repository contains the web frontend along with workspaces for the backend API and AI agents.
+
+## Repository layout
+
+| Path | Description |
+| --- | --- |
+| [`frontend/`](frontend/) | Next.js 16 web app (current UI) |
+| [`backend/`](backend/) | Node.js backend workspace |
+| [`agents/`](agents/) | Python AI agent workspace |
+
+## Quick start
+
+Requirements: **Node.js 20.9+** and **pnpm 9+** (or npm).
+
+```bash
+git clone https://github.com/himanshukumar70230-cpu/Exploring.git
+cd Exploring/frontend
+pnpm install
+pnpm dev
+```
+
+Open **http://localhost:3000**.
+
+No global pnpm? Use Corepack:
+
+```bash
+corepack pnpm install
+corepack pnpm dev
+```
+
+No environment variables or backend setup are needed to run the landing page.
+
+## Features
+
+- Responsive landing page for the Cartwise AI shopping assistant
+- Animated hero, product research, and agent visuals
+- Feature, workflow, metrics, security, and developer sections
+- Reusable shadcn/ui component library built on Radix UI
+- Typed API client scaffold in `frontend/lib/cartwise-api.ts`
+
+## Tech stack
+
+- Next.js 16 (App Router, Turbopack)
+- React 19 and TypeScript
+- Tailwind CSS 4
+- Radix UI / shadcn/ui
+- Three.js and React Three Fiber
+- Lucide icons
+
+## Documentation
+
+See [`frontend/README.md`](frontend/README.md) for detailed setup, scripts, project structure, and troubleshooting.
