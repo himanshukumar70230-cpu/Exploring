@@ -1,9 +1,4 @@
 # Cartwise Frontend
-
-The Cartwise web app: a landing page for an AI shopping assistant that researches products, compares options, and prepares a cart for approval.
-
-Built with **Next.js 16** (App Router + Turbopack), **React 19**, **TypeScript**, and **Tailwind CSS 4**.
-
 ## Requirements
 
 - **Node.js 20.9 or newer** (tested with Node 24)
@@ -70,10 +65,6 @@ npm run dev
 | `pnpm start` | Serves the production build (run `pnpm build` first) |
 
 With npm, use `npm run dev`, `npm run build`, and `npm start`.
-
-## Environment variables
-
-No environment variables are required to run the landing page. There is no `.env` file to create.
 
 `lib/cartwise-api.ts` contains a typed API client scaffold for a future Cartwise backend, but the landing page does not call it yet.
 
