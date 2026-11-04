@@ -53,6 +53,47 @@ const PayPalService = {
     }
     return data;
   },
+  // releaseEscrowPayout method
+
+
+  async releaseEscrowPayout({ workerPaypalEmail, amount, currency = 'USD', contractId }) {
+    const accessToken = await generateAccessToken();
+
+    const payload = {
+      sender_batch_header: {
+        sender_batch_id: `ESCROW_${contractId}_${Date.now()}`,
+        email_subject: 'Your Freelance Escrow Payment has been released!',
+        email_message: 'The project owner approved your work. Funds have been released from escrow.',
+      },
+      items: [
+        {
+          recipient_type: 'EMAIL',
+          amount: {
+            value: Number(amount).toFixed(2),
+            currency: currency.toUpperCase(),
+          },
+          note: `Escrow release for contract #${contractId}`,
+          sender_item_id: `ITEM_${contractId}`,
+          receiver: workerPaypalEmail,
+        },
+      ],
+    };
+
+    const response = await fetch(`${PAYPAL_BASE_URL}/v1/payments/payouts`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${accessToken}`,
+      },
+      body: JSON.stringify(payload),
+    });
+
+    const data = await response.json();
+    if (!response.ok) {
+      throw new Error(`PayPal Payout Error: ${JSON.stringify(data)}`);
+    }
+    return data;
+  },
 
   async getOrderDetails(orderId) {
     const accessToken = await generateAccessToken();

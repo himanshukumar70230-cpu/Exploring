@@ -3,7 +3,9 @@ const PaymentService = require('../services/paymentService');
 const AgentController = {
   async analyzePaymentIntent(req, res, next) {
     try {
-      const { recipient_email, amount, source_currency, target_currency, note } = req.body;
+      const { recipient_email, 
+      amount, source_currency, 
+      target_currency, note } = req.body;
 
       if (!amount || Number(amount) <= 0) {
         return res.status(400).json({

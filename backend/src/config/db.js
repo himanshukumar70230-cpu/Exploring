@@ -14,13 +14,6 @@ const pool = new Pool({
   ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
 });
 
-// Option B: Using connection string (e.g., Supabase / Neon / Render)
-/*
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
-});
-*/
 
 pool.on('connect', () => {
   console.log('Connected to PostgreSQL pool');
@@ -41,6 +34,31 @@ const initDB = async () => {
       email VARCHAR(255) UNIQUE NOT NULL,
       paypal_email VARCHAR(255),
       created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+    );
+
+    
+    CREATE TABLE IF NOT EXISTS escrow_contracts (
+      id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+      project_title VARCHAR(200) NOT NULL,
+      project_scope TEXT NOT NULL,
+      owner_email VARCHAR(255) NOT NULL,
+      worker_paypal_email VARCHAR(255) NOT NULL,
+      owner_max_budget NUMERIC(12, 2) NOT NULL,
+      worker_min_rate NUMERIC(12, 2) NOT NULL,
+      agreed_amount NUMERIC(12, 2),
+      currency VARCHAR(10) DEFAULT 'USD',
+      negotiation_transcript JSONB DEFAULT '[]',
+      otp_code VARCHAR(6),
+      otp_expires_at TIMESTAMP WITH TIME ZONE,
+      otp_verified BOOLEAN DEFAULT FALSE,
+      paypal_order_id VARCHAR(120) UNIQUE,      -- Money IN (Owner -> Platform Escrow)
+      paypal_payout_batch_id VARCHAR(120),      -- Money OUT (Platform Escrow -> Worker)
+      deliverable_url TEXT,
+      ai_review_notes TEXT,
+      status VARCHAR(40) DEFAULT 'NEGOTIATING', 
+      -- Status flow: NEGOTIATING -> DEAL_CRACKED -> OTP_VERIFIED -> ESCROW_FUNDED -> WORK_SUBMITTED -> RELEASED_TO_WORKER
+      created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+      updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
     );
 
     CREATE TABLE IF NOT EXISTS transactions (
