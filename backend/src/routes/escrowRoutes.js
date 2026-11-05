@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const EscrowService = require('../services/escrowService');
+const { requireRole } = require('../middleware/authMiddleware');
 const db = require('../config/db');
 
 // 1. Start Owner vs Worker AI Negotiation
@@ -14,7 +15,7 @@ router.post('/negotiate', async (req, res, next) => {
 });
 
 // 2. Verify Owner OTP & Generate PayPal Escrow Order
-router.post('/:contractId/verify-otp', async (req, res, next) => {
+router.post('/:contractId/verify-otp',requireRole('OWNER'), async (req, res, next) => {
   try {
     const { otp } = req.body;
     const data = await EscrowService.verifyOtpAndCreateEscrowOrder(req.params.contractId, otp);
@@ -25,7 +26,7 @@ router.post('/:contractId/verify-otp', async (req, res, next) => {
 });
 
 // 3. Capture Owner Payment (Locks funds in Platform PayPal Account)
-router.post('/:contractId/fund-escrow', async (req, res, next) => {
+router.post('/:contractId/fund-escrow',requireRole('OWNER'), async (req, res, next) => {
   try {
     const data = await EscrowService.captureIntoEscrow(req.params.contractId);
     res.status(200).json({ success: true, data });
@@ -35,7 +36,7 @@ router.post('/:contractId/fund-escrow', async (req, res, next) => {
 });
 
 // 4. Worker Submits Work
-router.post('/:contractId/submit-work', async (req, res, next) => {
+router.post('/:contractId/submit-work',requireRole('WORKER'), async (req, res, next) => {
   try {
     const { deliverable_url } = req.body;
     const data = await EscrowService.submitWork(req.params.contractId, deliverable_url);
@@ -46,7 +47,7 @@ router.post('/:contractId/submit-work', async (req, res, next) => {
 });
 
 // 5. Owner Approves Work -> Triggers PayPal Payouts API to Worker
-router.post('/:contractId/release-funds', async (req, res, next) => {
+router.post('/:contractId/release-funds',requireRole('OWNER'), async (req, res, next) => {
   try {
     const data = await EscrowService.approveWorkAndReleasePayout(req.params.contractId);
     res.status(200).json({ success: true, data });

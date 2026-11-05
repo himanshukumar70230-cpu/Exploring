@@ -6,12 +6,12 @@ require('dotenv').config();
 
 const paymentRoutes = require('./routes/paymentRoutes');
 const agentRoutes = require('./routes/agentRoutes');
-const authMiddleware = require('./middleware/authMiddleware');
+const escrowRoutes = require('./routes/escrowRoutes'); // <-- 1. Must be imported
+const { authMiddleware } = require('./middleware/authMiddleware');
 const errorMiddleware = require('./middleware/errorMiddleware');
 
 const app = express();
 
-// Global Middleware
 app.use(helmet());
 app.use(
   cors({
@@ -23,7 +23,6 @@ app.use(express.json());
 app.use(morgan('dev'));
 app.use(authMiddleware);
 
-// Health Check Endpoint
 app.get('/api/health', (req, res) => {
   res.status(200).json({
     status: 'ok',
@@ -35,8 +34,8 @@ app.get('/api/health', (req, res) => {
 // API Routes
 app.use('/api/payments', paymentRoutes);
 app.use('/api/agents', agentRoutes);
+app.use('/api/escrow', escrowRoutes); // <-- 2. Must be mounted here
 
-// Central Error Handler
 app.use(errorMiddleware);
 
 module.exports = app;
