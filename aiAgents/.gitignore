@@ -1,0 +1,67 @@
+# ==========================================
+# 1. Environment Variables & Secrets (CRITICAL)
+# ==========================================
+.env
+.env.*
+!.env.example
+backend/.env
+aiAgents/.env
+agents/.env
+client/.env
+
+# ==========================================
+# 2. Node.js (Backend & Frontend)
+# ==========================================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json
+
+# Vite / React Frontend build outputs
+dist/
+build/
+.vite/
+
+# ==========================================
+# 3. Python (FastAPI AI Multi-Agent Service)
+# ==========================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+aiAgents/venv/
+agents/venv/
+
+# Pydantic / Pytest / Mypy caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# ==========================================
+# 4. Docker & PostgreSQL Local Data
+# ==========================================
+postgres_data/
+pgdata/
+*.sql.gz
+*.dump
+
+# ==========================================
+# 5. IDEs, OS & Temporary Files
+# ==========================================
+.vscode/
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+*.swp
