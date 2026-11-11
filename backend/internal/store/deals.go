@@ -338,7 +338,9 @@ func (s *Store) AcceptMilestone(ctx context.Context, dealID, milestoneID, userID
 		int(escrow), progress, next, status, marshal(timeline), now(), deal.ID); err != nil {
 		return nil, err
 	}
-	if err := insertTransactionTx(ctx, tx, deal.FreelancerUserID, deal.ID, "release", net, "completed",
+	// Credit the gross release and record the fee separately so the ledger and
+	// the available balance agree with the seeded convention (release minus fee).
+	if err := insertTransactionTx(ctx, tx, deal.FreelancerUserID, deal.ID, "release", milestone.Amount, "completed",
 		"Bidline escrow", "Milestone release · "+milestone.Title, deal.Client, ""); err != nil {
 		return nil, err
 	}

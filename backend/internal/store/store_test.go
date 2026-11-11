@@ -150,6 +150,10 @@ func TestSeedAndLifecycle(t *testing.T) {
 	if err != nil {
 		t.Fatalf("submit milestone: %v", err)
 	}
+	beforeWallet, err := store.WalletFor(ctx, maya.ID)
+	if err != nil {
+		t.Fatalf("maya wallet before release: %v", err)
+	}
 	deal, err = store.AcceptMilestone(ctx, deal.ID, deal.Milestones[0].ID, demo.ID, 150)
 	if err != nil {
 		t.Fatalf("accept milestone: %v", err)
@@ -167,6 +171,11 @@ func TestSeedAndLifecycle(t *testing.T) {
 	}
 	if mayaWallet.Available <= 0 {
 		t.Fatalf("expected maya to be paid, got %d", mayaWallet.Available)
+	}
+	released := deal.Milestones[0].Amount
+	fee := released * 150 / 10000
+	if credited := mayaWallet.Available - beforeWallet.Available; credited != released-fee {
+		t.Fatalf("maya credited %s, want %s (release %s minus %s fee)", credited, released-fee, released, fee)
 	}
 }
 
