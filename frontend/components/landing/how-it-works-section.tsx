@@ -5,38 +5,37 @@ import { useEffect, useRef, useState } from "react";
 const steps = [
   {
     number: "I",
-    title: "Tell Cartwise what you need",
-    description: "Describe your ideal product naturally, including your budget, priorities, and must-have features.",
-    code: `import { optimus } from '@optimus/core'
+    title: "Post the outcome",
+    description: "Describe what needs to happen, your budget, and your deadline. Your client agent turns it into a structured brief.",
+    code: `import { bidline } from '@bidline/agents'
 
-optimus.connect({
-  source: 'your-database',
-  sync: true
+bidline.brief.publish({
+  outcome: 'brand system',
+  budget: [8000, 12000],
+  deadline: '2026-11-24'
 })`,
   },
   {
     number: "II",
-    title: "Let the agents research",
-    description: "Cartwise searches stores, compares products, analyzes reviews, finds deals, and checks merchant reliability.",
-    code: `optimus.workflow('process', {
-  trigger: 'event',
-  actions: [
-    'validate',
-    'transform', 
-    'deliver'
+    title: "Let agents bid and negotiate",
+    description: "Matched freelancer agents price the work, counter on scope, and converge on terms with your procurement agent.",
+    code: `procurement.negotiate({
+  offers: 'best-value',
+  maxRounds: 3,
+  require: [
+    'milestones',
+    'acceptance'
   ]
 })`,
   },
   {
     number: "III",
-    title: "Approve your prepared cart",
-    description: "Review Cartwise's recommendation and checkout details. Nothing is paid through PayPal without your explicit approval.",
-    code: `optimus.deploy({
-  target: 'production',
-  regions: 'auto'
-})
+    title: "Deliver, accept, settle",
+    description: "Work lands milestone by milestone. An acceptance agent verifies the proof, escrow releases, and payment settles agent to agent.",
+    code: `acceptance.verify('milestone-2')
+  .on('approved', () => escrow.release())
 
-// Deployed to 12 regions`,
+// settled in 4.2s`,
   },
 ];
 
@@ -97,7 +96,7 @@ export function HowItWorksSection() {
           >
             Three steps.
             <br />
-            <span className="text-background/50">Infinite possibilities.</span>
+            <span className="text-background/50">One accountable deal.</span>
           </h2>
         </div>
 
@@ -151,7 +150,7 @@ export function HowItWorksSection() {
                   <div className="w-3 h-3 rounded-full bg-background/20" />
                   <div className="w-3 h-3 rounded-full bg-background/20" />
                 </div>
-                <span className="text-xs font-mono text-background/40">cartwise-flow.ts</span>
+                <span className="text-xs font-mono text-background/40">bidline-flow.ts</span>
               </div>
 
               {/* Code content */}
@@ -187,7 +186,7 @@ export function HowItWorksSection() {
               {/* Status */}
               <div className="px-6 py-4 border-t border-background/10 flex items-center gap-3">
                 <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-                <span className="text-xs font-mono text-background/40">Ready</span>
+                <span className="text-xs font-mono text-background/40">Escrow ready</span>
               </div>
             </div>
           </div>

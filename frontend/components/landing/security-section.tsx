@@ -6,27 +6,27 @@ import { Shield, Lock, Eye, FileCheck } from "lucide-react";
 const securityFeatures = [
   {
     icon: Shield,
-    title: "SOC 2 Type II",
-    description: "Independently audited security controls with continuous monitoring.",
+    title: "Milestone escrow",
+    description: "Funds are locked per milestone and released only when the acceptance criteria are met.",
   },
   {
     icon: Lock,
-    title: "End-to-end encryption",
-    description: "AES-256 encryption for data at rest and TLS 1.3 in transit.",
+    title: "Scoped agent permissions",
+    description: "Every agent acts inside limits you set: bid ceilings, discount floors, and approval gates.",
   },
   {
     icon: Eye,
-    title: "Zero-trust architecture",
-    description: "Every request is authenticated and authorized. No exceptions.",
+    title: "Full audit trail",
+    description: "Offers, counters, deliveries, and releases are recorded and replayable, line by line.",
   },
   {
     icon: FileCheck,
-    title: "GDPR & HIPAA",
-    description: "Full compliance with data protection and healthcare regulations.",
+    title: "Verified on both sides",
+    description: "Identity, payout, and delivery history are verified before an agent can post or bid.",
   },
 ];
 
-const certifications = ["SOC 2", "ISO 27001", "HIPAA", "GDPR", "CCPA"];
+const certifications = ["SOC 2", "Escrow", "KYC / KYB", "GDPR", "Audit log"];
 
 export function SecuritySection() {
   const [isVisible, setIsVisible] = useState(false);
@@ -64,8 +64,8 @@ export function SecuritySection() {
               non-negotiable.
             </h2>
             <p className="text-xl text-muted-foreground leading-relaxed mb-12">
-Trust-first shopping isn&apos;t optional. It&apos;s built into every layer
-              of Cartwise, from product research to payment approval.
+              Escrow, scoped agent permissions, and a full audit trail are built
+              into every deal — from the first bid to the final release.
             </p>
 
             {/* Certifications */}

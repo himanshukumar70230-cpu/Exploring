@@ -1,14 +1,15 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 
 const navLinks = [
   { name: "Features", href: "#features" },
   { name: "How it works", href: "#how-it-works" },
-  { name: "AI agents", href: "#developers" },
-  { name: "Plans", href: "#pricing" },
+  { name: "Agent network", href: "#developers" },
+  { name: "Security", href: "#security" },
 ];
 
 export function Navigation() {
@@ -44,9 +45,9 @@ export function Navigation() {
           }`}
         >
           {/* Logo */}
-          <a href="#" className="flex items-center gap-2 group">
-            <span className={`font-display tracking-tight transition-all duration-500 ${isScrolled ? "text-xl" : "text-2xl"}`}>Cartwise</span>
-          </a>
+          <Link href="/" className="flex items-center gap-2 group">
+            <span className={`font-display tracking-tight transition-all duration-500 ${isScrolled ? "text-xl" : "text-2xl"}`}>Bidline</span>
+          </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-12">
@@ -64,14 +65,15 @@ export function Navigation() {
 
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center gap-4">
-            <a href="#" className={`text-foreground/70 hover:text-foreground transition-all duration-500 ${isScrolled ? "text-xs" : "text-sm"}`}>
+            <Link href="/login" className={`text-foreground/70 hover:text-foreground transition-all duration-500 ${isScrolled ? "text-xs" : "text-sm"}`}>
               Sign in
-            </a>
+            </Link>
             <Button
               size="sm"
+              asChild
               className={`bg-foreground hover:bg-foreground/90 text-background rounded-full transition-all duration-500 ${isScrolled ? "px-4 h-8 text-xs" : "px-6"}`}
             >
-              Start shopping
+              <Link href="/jobs/new">Post a project</Link>
             </Button>
           </div>
 
@@ -130,16 +132,16 @@ export function Navigation() {
           >
             <Button 
               variant="outline" 
+              asChild
               className="flex-1 rounded-full h-14 text-base"
-              onClick={() => setIsMobileMenuOpen(false)}
             >
-              Sign in
+              <Link href="/login" onClick={() => setIsMobileMenuOpen(false)}>Sign in</Link>
             </Button>
             <Button 
+              asChild
               className="flex-1 bg-foreground text-background rounded-full h-14 text-base"
-              onClick={() => setIsMobileMenuOpen(false)}
             >
-              Start shopping
+              <Link href="/jobs/new" onClick={() => setIsMobileMenuOpen(false)}>Post a project</Link>
             </Button>
           </div>
         </div>

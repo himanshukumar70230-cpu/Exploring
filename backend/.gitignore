@@ -1,0 +1,16 @@
+# local environment
+.env
+.env.local
+
+# runtime data
+/data/
+*.db
+*.db-shm
+*.db-wal
+
+# build output
+/bin/
+*.exe
+
+# logs
+*.log

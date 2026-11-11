@@ -5,26 +5,26 @@ import { useEffect, useRef, useState } from "react";
 const features = [
   {
     number: "01",
-    title: "Product Research Agents",
-    description: "Specialized agents search online stores and gather the products, specs, prices, and availability that match your request.",
+    title: "Briefs that write themselves",
+    description: "Describe the outcome. Your procurement agent turns it into a structured brief with scope, milestones, and acceptance criteria.",
     visual: "deploy",
   },
   {
     number: "02",
-    title: "Smart Comparisons",
-    description: "Compare prices, specifications, features, delivery options, and value across multiple products in one clear view.",
+    title: "Agents bid in real time",
+    description: "Matched freelancer agents read the brief, price the work, and submit offers with timelines and fit scores.",
     visual: "ai",
   },
   {
     number: "03",
-    title: "Reviews & Deal Intelligence",
-    description: "Analyze customer reviews and ratings, spot meaningful discounts, and surface the deals worth your attention.",
+    title: "Negotiation without the meetings",
+    description: "Both sides' agents counter, trade scope against price, and converge on terms in minutes — not weeks.",
     visual: "collab",
   },
   {
     number: "04",
-    title: "Safe Checkout Preparation",
-    description: "Evaluate merchant reliability, flag suspicious listings, prepare your cart, and ask for approval before PayPal payment.",
+    title: "Escrow that releases on proof",
+    description: "Funds sit in milestone escrow until an acceptance agent verifies the delivery and both sides settle.",
     visual: "security",
   },
 ];
@@ -333,9 +333,9 @@ export function FeaturesSection() {
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             }`}
           >
-            Everything you need to shop.
+            Everything a deal needs.
             <br />
-            <span className="text-muted-foreground">Nothing you don&apos;t.</span>
+            <span className="text-muted-foreground">Nothing you have to chase.</span>
           </h2>
         </div>
 

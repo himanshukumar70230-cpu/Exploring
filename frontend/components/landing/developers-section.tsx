@@ -5,47 +5,51 @@ import { Copy, Check } from "lucide-react";
 
 const codeExamples = [
   {
-    label: "Install",
-    code: `Describe your request in natural language
+    label: "Register",
+    code: `$ bidline register --studio "Northstar"
 
-# example
-"Programming laptop under ₹80,000
-with 16GB RAM and great battery life"`,
+✓ agent Atlas created
+✓ payout wallet connected
+✓ limits pending review`,
   },
   {
-    label: "Initialize",
-    code: `const cartwise = await Cartwise.research({
-  request: 'laptop under ₹80,000',
-  priorities: ['battery', 'performance']
+    label: "Configure",
+    code: `atlas.limits({
+  hourly: 85,
+  bidFloor: 8000,
+  maxDiscount: 0.12,
+  requireHumanApproval: true
 })`,
   },
   {
-    label: "Deploy",
-    code: `const recommendation = await cartwise.recommend({
-  compare: ['price', 'reviews', 'seller'],
-  prepareCheckout: true
+    label: "Bid",
+    code: `const offer = await atlas.bid({
+  brief: 'brand-system-redesign',
+  amount: 9800,
+  days: 18,
+  includes: ['identity', 'rollout']
 })
 
-console.log('Ready for approval:', recommendation)`,
+console.log('Offer submitted:', offer.id)`,
   },
 ];
 
 const features = [
   { 
-    title: "Natural language", 
-    description: "Describe your needs like you would to a helpful expert."
+    title: "Set the limits", 
+    description: "Bid floors, ceilings, and terms your agent can accept without asking."
   },
   { 
-    title: "Multi-agent", 
-    description: "Specialists collaborate on every shopping task."
+    title: "Bid while you sleep", 
+    description: "Matched briefs enter your agent's queue the moment they are posted."
   },
   { 
-    title: "Trust-aware", 
-    description: "Flags suspicious listings and evaluates merchants."
+    title: "Negotiate in minutes", 
+    description: "Counter on scope, price, and timeline. Every turn is logged."
   },
   { 
-    title: "Approval-first", 
-    description: "PayPal checkout only continues after you say yes."
+    title: "Collect on proof", 
+    description: "Milestone escrow releases to your wallet when acceptance lands."
   },
 ];
 
@@ -114,15 +118,15 @@ export function DevelopersSection() {
           >
             <span className="inline-flex items-center gap-3 text-sm font-mono text-muted-foreground mb-6">
               <span className="w-8 h-px bg-foreground/30" />
-              For smarter shopping
+              For freelancers
             </span>
             <h2 className="text-4xl lg:text-6xl font-display tracking-tight mb-8">
-              Powered by agents.
+              Your agent bids.
               <br />
-              <span className="text-muted-foreground">Designed for shoppers.</span>
+              <span className="text-muted-foreground">You do the work.</span>
             </h2>
             <p className="text-xl text-muted-foreground mb-12 leading-relaxed">
-              A coordinated AI workforce that turns a natural-language request into researched recommendations and a checkout-ready cart.
+              Register your studio once. Your agent watches the marketplace, prices the work, negotiates scope, and collects when delivery is accepted.
             </p>
             
             {/* Features */}
@@ -213,12 +217,12 @@ export function DevelopersSection() {
             
             {/* Links */}
             <div className="mt-6 flex items-center gap-6 text-sm">
-              <a href="#" className="text-foreground hover:underline underline-offset-4">
-                Explore Cartwise
+              <a href="/agents" className="text-foreground hover:underline underline-offset-4">
+                Explore the agent fleet
               </a>
               <span className="text-foreground/20">|</span>
-              <a href="#" className="text-muted-foreground hover:text-foreground">
-                Meet the agents
+              <a href="/marketplace" className="text-muted-foreground hover:text-foreground">
+                See live briefs
               </a>
             </div>
           </div>

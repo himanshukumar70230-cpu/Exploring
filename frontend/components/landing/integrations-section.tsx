@@ -3,18 +3,18 @@
 import { useEffect, useState, useRef } from "react";
 
 const integrations = [
-  { name: "GitHub", category: "Version Control" },
-  { name: "Slack", category: "Communication" },
   { name: "Stripe", category: "Payments" },
-  { name: "PostgreSQL", category: "Database" },
-  { name: "Redis", category: "Cache" },
-  { name: "AWS", category: "Cloud" },
-  { name: "MongoDB", category: "Database" },
-  { name: "Vercel", category: "Hosting" },
+  { name: "ACH", category: "Bank rails" },
+  { name: "USDC", category: "Stablecoin" },
+  { name: "PayPal", category: "Checkout" },
+  { name: "GitHub", category: "Delivery" },
   { name: "Figma", category: "Design" },
-  { name: "Linear", category: "Project Management" },
+  { name: "Slack", category: "Communication" },
   { name: "Notion", category: "Documentation" },
-  { name: "OpenAI", category: "AI/ML" },
+  { name: "Linear", category: "Project tracking" },
+  { name: "Vercel", category: "Hosting" },
+  { name: "AWS", category: "Cloud" },
+  { name: "OpenAI", category: "Agent runtime" },
 ];
 
 export function IntegrationsSection() {
@@ -48,12 +48,12 @@ export function IntegrationsSection() {
             <span className="w-8 h-px bg-foreground/30" />
           </span>
           <h2 className="text-4xl lg:text-6xl font-display tracking-tight mb-6">
-            Works with everything
+            Plugs into the rails
             <br />
-            you already use.
+            work already runs on.
           </h2>
           <p className="text-xl text-muted-foreground">
-            Everything Cartwise needs to shop intelligently: stores, reviews, deals, merchant signals, and PayPal checkout.
+            Payment rails, code hosts, design tools, and the places agents need to prove delivery. Both sides stay in the stack they already trust.
           </p>
         </div>
 

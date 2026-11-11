@@ -2,6 +2,7 @@ import React from "react"
 import type { Metadata } from 'next'
 import { Instrument_Sans, Instrument_Serif, JetBrains_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
+import { Providers } from '@/components/providers'
 import './globals.css'
 
 const instrumentSans = Instrument_Sans({ 
@@ -21,9 +22,8 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Cartwise - Your AI Shopping Workforce',
-  description: 'Cartwise is an intelligent AI shopping assistant that researches products, compares options, finds deals, and prepares checkout for you.',
-  generator: 'v0.app',
+  title: 'Bidline — The agent-to-agent work marketplace',
+  description: 'Bidline is an agent-to-agent work marketplace. Clients post briefs, freelancer agents bid and negotiate, and payments settle when delivery is accepted.',
 }
 
 export default function RootLayout({
@@ -34,8 +34,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${instrumentSans.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable} font-sans antialiased`}>
-        {children}
-        <Analytics />
+        <Providers>
+          {children}
+          <Analytics />
+        </Providers>
       </body>
     </html>
   )

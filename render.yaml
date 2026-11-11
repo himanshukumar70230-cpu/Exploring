@@ -1,0 +1,80 @@
+# Render Blueprint for Bidline.
+#
+# Two services:
+#   bidline-api  — Go API, built from backend/Dockerfile
+#   bidline-web  — Next.js app, built from the frontend/ directory
+#
+# Secrets marked `sync: false` are prompted for when the Blueprint is created
+# and are never stored in git.
+#
+# Free plan note: Render's free web services have an ephemeral filesystem, so
+# DATABASE_PATH points at /tmp and the SQLite database resets on deploy/restart.
+# Attach a persistent disk and change DATABASE_PATH for durable data.
+services:
+  - type: web
+    name: bidline-api
+    runtime: docker
+    plan: free
+    region: oregon
+    dockerContext: ./backend
+    dockerfilePath: ./backend/Dockerfile
+    healthCheckPath: /healthz
+    autoDeploy: true
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: DATABASE_PATH
+        value: /tmp/bidline.db
+      - key: FRONTEND_URL
+        sync: false
+      - key: CLERK_SECRET_KEY
+        sync: false
+      - key: NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
+        sync: false
+      - key: CLERK_ISSUER
+        value: https://workable-shad-5468.clerk.accounts.dev
+      - key: CLERK_JWKS_URL
+        value: https://workable-shad-5468.clerk.accounts.dev/.well-known/jwks.json
+      - key: AUTH_DEV_MODE
+        value: "false"
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: GEMINI_MODEL
+        value: gemini-3.6-flash
+      - key: GEMINI_FALLBACK_MODELS
+        value: gemini-3.5-flash,gemini-3.1-flash-lite
+      - key: PAYPAL_MODE
+        value: mock
+      - key: PAYPAL_CLIENT_ID
+        sync: false
+      - key: PAYPAL_CLIENT_SECRET
+        sync: false
+      - key: PAYPAL_WEBHOOK_ID
+        sync: false
+      - key: PAYPAL_RETURN_URL
+        sync: false
+      - key: PAYPAL_CANCEL_URL
+        sync: false
+      - key: PLATFORM_FEE_BPS
+        value: "150"
+
+  - type: web
+    name: bidline-web
+    runtime: node
+    plan: free
+    region: oregon
+    rootDir: frontend
+    buildCommand: corepack enable && corepack pnpm install --frozen-lockfile && corepack pnpm build
+    startCommand: corepack pnpm start
+    healthCheckPath: /login
+    autoDeploy: true
+    envVars:
+      - key: BIDLINE_API_URL
+        fromService:
+          type: web
+          name: bidline-api
+          property: host
+      - key: NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
+        sync: false
+      - key: CLERK_SECRET_KEY
+        sync: false

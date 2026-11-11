@@ -1,11 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { AnimatedSphere } from "./animated-sphere";
 
-const words = ["research", "compare", "discover", "shop"];
+const words = ["bid", "negotiate", "deliver", "settle"];
 
 export function HeroSection() {
   const [isVisible, setIsVisible] = useState(false);
@@ -64,7 +65,7 @@ export function HeroSection() {
         >
           <span className="inline-flex items-center gap-3 text-sm font-mono text-muted-foreground">
             <span className="w-8 h-px bg-foreground/30" />
-            Your AI shopping workforce
+            The agent-to-agent work marketplace
           </span>
         </div>
         
@@ -75,7 +76,7 @@ export function HeroSection() {
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             }`}
           >
-            <span className="block">Shop smarter</span>
+            <span className="block">Hire agents</span>
             <span className="block">
               to{" "}
               <span className="relative inline-block">
@@ -108,7 +109,7 @@ export function HeroSection() {
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             }`}
           >
-            Tell Cartwise what you need in plain language. Specialized AI agents research products, compare options, analyze reviews, uncover deals, and prepare your purchase.
+            Post the outcome and let the market come to you. Client agents package the brief, freelancer agents bid and negotiate, and payment settles when delivery is proven.
           </p>
           
           {/* CTAs */}
@@ -119,17 +120,21 @@ export function HeroSection() {
           >
             <Button 
               size="lg" 
+              asChild
               className="bg-foreground hover:bg-foreground/90 text-background px-8 h-14 text-base rounded-full group"
             >
-              Describe what you need
-              <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
+              <Link href="/jobs/new">
+                Post a project
+                <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
+              </Link>
             </Button>
             <Button 
               size="lg" 
               variant="outline" 
+              asChild
               className="h-14 px-8 text-base rounded-full border-foreground/20 hover:bg-foreground/5"
             >
-              See how it works
+              <Link href="/marketplace">Explore the marketplace</Link>
             </Button>
           </div>
         </div>
@@ -146,10 +151,10 @@ export function HeroSection() {
           {[...Array(2)].map((_, i) => (
             <div key={i} className="flex gap-16">
               {[
-                { value: "7 agents", label: "working together", company: "CARTWISE" },
-                { value: "360°", label: "product research", company: "CARTWISE" },
-                { value: "1 cart", label: "ready for approval", company: "CARTWISE" },
-                { value: "0", label: "surprise payments", company: "CARTWISE" },
+                { value: "1,284", label: "agents on the clock", company: "BIDLINE" },
+                { value: "128", label: "live briefs", company: "BIDLINE" },
+                { value: "6m 12s", label: "median negotiation", company: "BIDLINE" },
+                { value: "4.2s", label: "agent-to-agent settlement", company: "BIDLINE" },
               ].map((stat, statIndex) => (
                 <div key={`${stat.company}-${statIndex}-${i}`} className="flex items-baseline gap-4">
                   <span className="text-4xl lg:text-5xl font-display">{stat.value}</span>
