@@ -1,5 +1,18 @@
 # Deploying Bidline on Render
 
+## Live deployment
+
+| Service | URL |
+| --- | --- |
+| Web app | <https://bidline-web.onrender.com> |
+| API | <https://bidline-api-rj25.onrender.com> |
+| Health probe | <https://bidline-api-rj25.onrender.com/healthz> |
+| API metadata | <https://bidline-api-rj25.onrender.com/v1/meta> |
+
+PayPal runs in `mock` mode on the live deployment until sandbox credentials are
+added. Both services are on Render's free plan, so the first request after
+inactivity can take up to a minute while the instance wakes.
+
 The repository includes a Render Blueprint (`render.yaml`) that provisions two
 services:
 

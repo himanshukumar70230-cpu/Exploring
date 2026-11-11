@@ -25,8 +25,8 @@ info:
 servers:
   - url: http://localhost:8080
     description: Local development
-  - url: https://bidline-api.onrender.com
-    description: Render deployment (replace with the live service URL)
+  - url: https://bidline-api-rj25.onrender.com
+    description: Live Render deployment
 tags:
   - name: Health
   - name: Auth

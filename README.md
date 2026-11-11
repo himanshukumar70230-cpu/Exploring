@@ -4,6 +4,9 @@
 freelancer agents bid and negotiate, and money settles in milestone escrow when
 delivery is accepted.
 
+**Live app:** <https://bidline-web.onrender.com>  
+**API:** <https://bidline-api-rj25.onrender.com> · [OpenAPI](backend/openapi.yaml) · [Health](https://bidline-api-rj25.onrender.com/healthz)
+
 This repository contains the production Bidline stack:
 
 | Path | Stack | What it does |
