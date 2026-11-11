@@ -14,6 +14,18 @@ func (m Money) MarshalJSON() ([]byte, error) {
 	return strconv.AppendInt(nil, int64(m)/100, 10), nil
 }
 
+// UnmarshalJSON mirrors MarshalJSON: JSON carries whole dollars, so a decoded
+// value must be converted back to cents. Without this, milestone plans stored
+// as JSON read back 100x too small.
+func (m *Money) UnmarshalJSON(data []byte) error {
+	var dollars int64
+	if err := json.Unmarshal(data, &dollars); err != nil {
+		return err
+	}
+	*m = Money(dollars * 100)
+	return nil
+}
+
 // Dollars returns the display value used across the product.
 func (m Money) Dollars() int { return int(m) / 100 }
 

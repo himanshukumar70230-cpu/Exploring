@@ -2,9 +2,49 @@ package store
 
 import (
 	"context"
+	"encoding/json"
 	"path/filepath"
 	"testing"
 )
+
+func TestMoneyJSONUsesWholeDollars(t *testing.T) {
+	data, err := json.Marshal(FromDollars(9800))
+	if err != nil {
+		t.Fatalf("marshal money: %v", err)
+	}
+	if string(data) != "9800" {
+		t.Fatalf("marshal = %s, want 9800", data)
+	}
+
+	var decoded Money
+	if err := json.Unmarshal([]byte("9800"), &decoded); err != nil {
+		t.Fatalf("unmarshal money: %v", err)
+	}
+	if decoded != FromDollars(9800) {
+		t.Fatalf("unmarshal = %s, want $9800", decoded)
+	}
+}
+
+func TestMilestonePlanSurvivesJSONRoundTrip(t *testing.T) {
+	planned := defaultMilestones(FromDollars(10500))
+	data, err := json.Marshal(planned)
+	if err != nil {
+		t.Fatalf("marshal milestones: %v", err)
+	}
+
+	var decoded []Milestone
+	if err := json.Unmarshal(data, &decoded); err != nil {
+		t.Fatalf("unmarshal milestones: %v", err)
+	}
+	if len(decoded) != len(planned) {
+		t.Fatalf("decoded %d milestones, want %d", len(decoded), len(planned))
+	}
+	for index := range planned {
+		if decoded[index].Amount != planned[index].Amount {
+			t.Fatalf("milestone %d amount = %s, want %s", index, decoded[index].Amount, planned[index].Amount)
+		}
+	}
+}
 
 func testStore(t *testing.T) *Store {
 	t.Helper()
@@ -127,6 +167,37 @@ func TestSeedAndLifecycle(t *testing.T) {
 	}
 	if mayaWallet.Available <= 0 {
 		t.Fatalf("expected maya to be paid, got %d", mayaWallet.Available)
+	}
+}
+
+func TestCreatedJobMilestonesKeepTheirValue(t *testing.T) {
+	ctx := context.Background()
+	store := testStore(t)
+
+	owner, err := store.UpsertUser(ctx, "clerk_milestone_owner", "owner@example.com", "Owner", "", "client")
+	if err != nil {
+		t.Fatalf("upsert user: %v", err)
+	}
+	job, err := store.CreateJob(ctx, *owner, CreateJobInput{
+		Title:       "Analytics dashboard",
+		Category:    "Development",
+		Description: "Ship a dashboard.",
+		BudgetMin:   int(FromDollars(9000)),
+		BudgetMax:   int(FromDollars(12000)),
+	})
+	if err != nil {
+		t.Fatalf("create job: %v", err)
+	}
+
+	var total Money
+	for _, milestone := range job.Milestones {
+		total += milestone.Amount
+	}
+	if total != FromDollars(10500) {
+		t.Fatalf("milestone total = %s, want $10500", total)
+	}
+	if job.Milestones[0].Amount != FromDollars(2625) {
+		t.Fatalf("first milestone = %s, want $2625", job.Milestones[0].Amount)
 	}
 }
 
